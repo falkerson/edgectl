@@ -14,8 +14,10 @@ func NewRootCommand() *cobra.Command {
 		Short: "edgectl CLI based client for edgex platform",
 	}
 
-	rootCmd.AddCommand(addVersion())
-	rootCmd.AddCommand(cmd.InitAddressableCommand())
+	rootCmd.AddCommand(
+		addVersion(),
+		cmd.InitAddressableCommand(),
+		cmd.InitDeviceCommand())
 
 	return rootCmd
 }

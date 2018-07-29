@@ -3,23 +3,13 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"text/tabwriter"
 
 	"github.com/edgexfoundry/edgex-go/pkg/clients/metadata"
 	"github.com/edgexfoundry/edgex-go/pkg/clients/types"
 	"github.com/spf13/cobra"
 )
 
-const (
-	BaseMetadataURL    = "http://edgex.webzoom.top:48081"
-	AddressableUriPath = "/api/v1/addressable"
-	MetadataServiceKey = "edgex-core-metadata"
-)
-
-var (
-	client metadata.AddressableClient = nil
-	w                                 = new(tabwriter.Writer)
-)
+var AddressableClient metadata.AddressableClient = nil
 
 func InitAddressableCommand() *cobra.Command {
 	// Initialize REST client for addressable
@@ -30,27 +20,27 @@ func InitAddressableCommand() *cobra.Command {
 		UseRegistry: false,
 		Url:         url}
 
-	client = metadata.NewAddressableClient(params, types.Endpoint{})
+	AddressableClient = metadata.NewAddressableClient(
+		params, types.Endpoint{})
 
-	rootAddressableCommand := &cobra.Command{
+	rootCommand := &cobra.Command{
 		Use:   "addressable [COMMANDS]",
 		Short: "Operate with addressable",
 	}
 
-	AddressbleGetCommand := &cobra.Command{
+	GetCommand := &cobra.Command{
 		Use:   "get [OPTIONS]",
 		Short: "Get specific addressable object",
 		Run:   GetAddressableByName,
 	}
 
-	rootAddressableCommand.AddCommand(AddressbleGetCommand)
+	rootCommand.AddCommand(GetCommand)
 
-	return rootAddressableCommand
+	return rootCommand
 }
 
 func GetAddressableByName(c *cobra.Command, args []string) {
-	fmt.Sprintf("Fetch addressable by name %s", args[0])
-	addressable, err := client.AddressableForName(args[0])
+	addressable, err := AddressableClient.AddressableForName(args[0])
 	if err != nil {
 		fmt.Println(err)
 	} else {
