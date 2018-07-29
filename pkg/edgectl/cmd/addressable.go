@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"text/tabwriter"
 
 	"github.com/edgexfoundry/edgex-go/pkg/clients/metadata"
 	"github.com/edgexfoundry/edgex-go/pkg/clients/types"
@@ -14,7 +16,10 @@ const (
 	MetadataServiceKey = "edgex-core-metadata"
 )
 
-var client metadata.AddressableClient = nil
+var (
+	client metadata.AddressableClient = nil
+	w                                 = new(tabwriter.Writer)
+)
 
 func InitAddressableCommand() *cobra.Command {
 	// Initialize REST client for addressable
@@ -49,6 +54,19 @@ func GetAddressableByName(c *cobra.Command, args []string) {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Println(addressable)
+		w.Init(os.Stdout, 0, 8, 1, '\t', 0)
+		fmt.Fprintln(w, "Name\tProtocol\tHTTPMethod\tAddress\tPort\t")
+		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%d\t\n",
+			addressable.Name,
+			addressable.Protocol,
+			addressable.HTTPMethod,
+			addressable.Address,
+			addressable.Port)
+		fmt.Fprintln(w)
+		w.Flush()
 	}
+}
+
+func ListAddressable(c *cobra.Command, args []string) {
+	// TODO(apopovych): implement proper method in client
 }
