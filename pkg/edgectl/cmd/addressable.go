@@ -67,6 +67,42 @@ func GetAddressableByName(c *cobra.Command, args []string) {
 	}
 }
 
-func ListAddressable(c *cobra.Command, args []string) {
+func GetAllAddressables(c *cobra.Command, args []string) {
+	// TODO(apopovych): implement proper method in client
+}
+
+func AddAddressable(c *cobra.Command, args []string) {
+	// TODO(apopovych): implement proper method in client
+}
+
+func UpdateAddressable(c *cobra.Command, args []string) {
+	// TODO(apopovych): implement proper method in client
+}
+
+func GetAddressableById(c *cobra.Command, args []string) {
+	// TODO(apopovych): implement proper method in client
+}
+
+func DeleteAddressableById(c *cobra.Command, args []string) {
+	// TODO(apopovych): implement proper method in client
+}
+
+func DeleteAddressableByName(c *cobra.Command, args []string) {
+	// TODO(apopovych): implement proper method in client
+}
+
+func GetAddressableByTopic(c *cobra.Command, args []string) {
+	// TODO(apopovych): implement proper method in client
+}
+
+func GetAddressableByPort(c *cobra.Command, args []string) {
+	// TODO(apopovych): implement proper method in client
+}
+
+func GetAddressableByPublisher(c *cobra.Command, args []string) {
+	// TODO(apopovych): implement proper method in client
+}
+
+func GetAddressableByAddress(c *cobra.Command, args []string) {
 	// TODO(apopovych): implement proper method in client
 }
